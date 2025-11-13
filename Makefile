@@ -8,7 +8,6 @@ SRC = ft_printf.c
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
-
 INCLUDE = -I. #инклюд относительно мейкфайла
 
 all: $(NAME)
