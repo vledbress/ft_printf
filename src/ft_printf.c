@@ -1,5 +1,16 @@
-#include "ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vborysov <vborysov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/13 22:53:57 by vborysov          #+#    #+#             */
+/*   Updated: 2025/11/13 22:57:16 by vborysov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "ft_printf.h"
 
 
 // You have to implement the following conversions:
@@ -13,30 +24,33 @@
 // • %X Prints a number in hexadecimal (base 16) uppercase format.
 // • %% Prints a percent sign.
 
-static void	ft_putchar(char c)
+static int	ft_putchar(char c)
 {
 	write(1, &c, 1);
+	return (1);
 }
 
-static void	ft_putstr(char *str)
+static int	ft_putstr(char *str)
 {
-	while (*str)
-		ft_putchar(*str++);
-}
-
-static void	ft_print_str(char *str)
-{
+	int	len;
+	
 	if (!str)
-		ft_putstr("(null)");
-	else
-		ft_putstr(str);
+		str = "(null)";
+	len = 0;
+	while (*str)
+		len += ft_putchar(*str++);
+	return (len);
 }
 
-// va_list	Тип для хранения информации о списке аргументов
-// va_start(ap, last)	Инициализирует доступ к аргументам
-// va_arg(ap, type)	Извлекает следующий аргумент указанного типа
-// va_end(ap)	Завершает работу со списком аргументов
+static size_t	ft_strlen(char *str)
+{
+	size_t	len;
 
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
+}
 
 static void	ft_putnbr(int num)
 {
@@ -53,24 +67,24 @@ static void	ft_putnbr(int num)
 	ft_putchar((dummy % 10) + '0');
 }
 
-static size_t	ft_strlen(char *str)
-{
-	size_t	len;
 
-	len = 0;
-	while (str[len])
-		len++;
-	return (len);
-}
-
-static void	ft_putunbr_base(unsigned int num, char *base)
+static void ft_putnbr_base_unsigned(unsigned long long num, char *base)
 {
-	size_t	base_len;
+    size_t base_len;
 
 	base_len = ft_strlen(base);
-	if (num >= base_len)
-		ft_putunbr_base(num / 16, base);
-	ft_putchar(base[num % 16]);
+    if (num >= base_len)
+        ft_putnbr_base_unsigned(num / base_len, base);
+    ft_putchar(base[num % base_len]);
+}
+
+static void	ft_print_pointer(void *ptr)
+{
+	unsigned long	address;
+
+	address = (unsigned long)ptr;
+	ft_putstr("0x");
+	ft_putnbr_base_unsigned(address, "0123456789abcdef");
 }
 
 int ft_printf(const char *format, ...)
@@ -93,9 +107,15 @@ int ft_printf(const char *format, ...)
 			else if (letter == 'd' || letter == 'i')
 				ft_putnbr(va_arg(args, int));
 			else if (letter == 'x')
-				ft_putunbr_base(va_arg(args, unsigned int), "0123456789abcdef");
+				ft_putnbr_base_unsigned(va_arg(args, unsigned int),  "0123456789abcdef");
 			else if (letter == 'X')
-				ft_putunbr_base(va_arg(args, unsigned int), "0123456789ABCDEF");
+				ft_putnbr_base_unsigned(va_arg(args, unsigned int),  "0123456789ABCDEF");
+			else if (letter == 'u')
+				ft_putnbr_base_unsigned(va_arg(args, unsigned int),  "0123456789");
+			else if (letter == 'p')
+				ft_print_pointer(va_arg(args, void *));
+			else if (letter == '%')
+				ft_putchar('%');
 		}
 		else 
 			ft_putchar(*format);
