@@ -6,7 +6,7 @@
 /*   By: vborysov <vborysov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 22:53:57 by vborysov          #+#    #+#             */
-/*   Updated: 2025/11/13 22:57:16 by vborysov         ###   ########.fr       */
+/*   Updated: 2025/11/13 23:04:56 by vborysov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int ft_printf(const char *format, ...)
 			if (letter == 'c')
 				ft_putchar((char)va_arg(args, int));
 			else if (letter == 's')
-				ft_print_str(va_arg(args, char *));
+				ft_putstr(va_arg(args, char *));
 			else if (letter == 'd' || letter == 'i')
 				ft_putnbr(va_arg(args, int));
 			else if (letter == 'x')
