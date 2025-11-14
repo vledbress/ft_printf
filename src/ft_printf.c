@@ -6,7 +6,7 @@
 /*   By: vborysov <vborysov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 22:53:57 by vborysov          #+#    #+#             */
-/*   Updated: 2025/11/13 23:04:56 by vborysov         ###   ########.fr       */
+/*   Updated: 2025/11/14 15:15:59 by vborysov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,48 +52,60 @@ static size_t	ft_strlen(char *str)
 	return (len);
 }
 
-static void	ft_putnbr(int num)
+static int	ft_putnbr(int num)
 {
-	long long int	dummy;
+	long long int	n;
+	int				symbols;
 
-	dummy = num;
-	if (num < 0)
+	n = num;
+	symbols = 0;
+	if (n < 0)
 	{
-		ft_putchar('-');
-		dummy = -dummy;
+		symbols += ft_putchar('-');
+		n = -n;
 	}
-	if (dummy >= 10)
-		ft_putnbr(dummy / 10);
-	ft_putchar((dummy % 10) + '0');
+	if (n >= 10)
+		symbols += ft_putnbr(n / 10);
+	symbols += ft_putchar((n % 10) + '0');
+	return (symbols);
 }
 
-
-static void ft_putnbr_base_unsigned(unsigned long long num, char *base)
+static int	ft_putnbr_base_unsigned(unsigned long long num, char *base)
 {
     size_t base_len;
+	int		symbols;
 
+	symbols = 0;
 	base_len = ft_strlen(base);
     if (num >= base_len)
-        ft_putnbr_base_unsigned(num / base_len, base);
-    ft_putchar(base[num % base_len]);
+        symbols += ft_putnbr_base_unsigned(num / base_len, base);
+    symbols += ft_putchar(base[num % base_len]);
+	return (symbols);
 }
 
-static void	ft_print_pointer(void *ptr)
+//TODO: make this function return n printed symbols
+static int	ft_print_pointer(void *ptr)
 {
 	unsigned long	address;
-
+	int				symbols;
+	
+	symbols = 0;
 	address = (unsigned long)ptr;
-	ft_putstr("0x");
-	ft_putnbr_base_unsigned(address, "0123456789abcdef");
+	symbols += ft_putstr("0x");
+	symbols += ft_putnbr_base_unsigned(address, "0123456789abcdef");
+	return (symbols);
 }
 
+//TODO: make this function return n printed symbols
 int ft_printf(const char *format, ...)
 {
 	va_list args;
 	char	letter;
-
+	int		symbols;
+	
 	if (!format)
 		return (-1);
+	symbols = 0;
 	va_start(args, format);
 	while (*format)
 	{
@@ -101,28 +113,28 @@ int ft_printf(const char *format, ...)
 		{
 			letter = *(++format);
 			if (letter == 'c')
-				ft_putchar((char)va_arg(args, int));
+				symbols +=ft_putchar((char)va_arg(args, int));
 			else if (letter == 's')
-				ft_putstr(va_arg(args, char *));
+				symbols +=ft_putstr(va_arg(args, char *));
 			else if (letter == 'd' || letter == 'i')
-				ft_putnbr(va_arg(args, int));
+				symbols +=ft_putnbr(va_arg(args, int));
 			else if (letter == 'x')
-				ft_putnbr_base_unsigned(va_arg(args, unsigned int),  "0123456789abcdef");
+				symbols +=ft_putnbr_base_unsigned(va_arg(args, unsigned int),  "0123456789abcdef");
 			else if (letter == 'X')
-				ft_putnbr_base_unsigned(va_arg(args, unsigned int),  "0123456789ABCDEF");
+				symbols +=ft_putnbr_base_unsigned(va_arg(args, unsigned int),  "0123456789ABCDEF");
 			else if (letter == 'u')
-				ft_putnbr_base_unsigned(va_arg(args, unsigned int),  "0123456789");
+				symbols +=ft_putnbr_base_unsigned(va_arg(args, unsigned int),  "0123456789");
 			else if (letter == 'p')
-				ft_print_pointer(va_arg(args, void *));
+				symbols +=ft_print_pointer(va_arg(args, void *));
 			else if (letter == '%')
-				ft_putchar('%');
+				symbols +=ft_putchar('%');
 		}
 		else 
-			ft_putchar(*format);
+			symbols +=ft_putchar(*format);
 		format++;
 	}
 	va_end(args);
-	return (0);
+	return (symbols);
 }
 
 

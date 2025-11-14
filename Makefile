@@ -15,7 +15,7 @@ all: $(NAME)
 $(NAME) : $(OBJ)
 	ar rcs $(NAME) $(OBJ)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c  | $(OBJ_DIR)
 	$(CC) $(INCLUDE) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):

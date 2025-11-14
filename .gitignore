@@ -2,3 +2,5 @@ libftprintf.a
 
 obj/
 
+main.c
+a.out
