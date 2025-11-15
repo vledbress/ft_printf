@@ -3,54 +3,108 @@
 
 int main(void)
 {
-	int ret1, ret2;
+	/* ---------- %c ---------- */
+	printf("========== %%c TESTS ==========\n");
+	printf(" = %d\n",   ft_printf("%c", 'A'));
+	printf(" = %d\n\n", printf("%c", 'A'));
 
-	printf("===== TEST %%c =====\n");
-	ret1 = printf("printf:  [%c]\n", 'A');
-	ret2 = ft_printf("ft_printf:[%c]\n", 'A');
-	printf("ret printf = %d | ret ft = %d\n\n", ret1, ret2);
+	printf(" = %d\n",   ft_printf("%c", 0));
+	printf(" = %d\n\n", printf("%c", 0));
 
-	printf("===== TEST %%s =====\n");
-	ret1 = printf("printf:  [%s]\n", "Hello");
-	ret2 = ft_printf("ft_printf:[%s]\n", "Hello");
-	printf("ret printf = %d | ret ft = %d\n\n", ret1, ret2);
+	/* ---------- %s ---------- */
+	char *s1 = "Hello, world!";
+	char *s2 = NULL;
+	char *empty = "";
+	char *longs = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 
-	ret1 = printf("printf:  [%s]\n", NULL);
-	ret2 = ft_printf("ft_printf:[%s]\n", NULL);
-	printf("ret printf = %d | ret ft = %d\n\n", ret1, ret2);
+	printf("========== %%s TESTS ==========\n");
+	printf(" = %d\n",   ft_printf("%s", s1));
+	printf(" = %d\n\n", printf("%s", s1));
 
-	printf("===== TEST %%p =====\n");
-	int x = 42;
-	ret1 = printf("printf:  [%p]\n", &x);
-	ret2 = ft_printf("ft_printf:[%p]\n", &x);
-	printf("ret printf = %d | ret ft = %d\n\n", ret1, ret2);
+	printf(" = %d\n",   ft_printf("%s", s2));
+	printf(" = %d\n\n", printf("%s", s2));
 
-	printf("===== TEST %%d / %%i =====\n");
-	ret1 = printf("printf:  [%d] [%i] [%d]\n", 0, -42, 2147483647);
-	ret2 = ft_printf("ft_printf:[%d] [%i] [%d]\n", 0, -42, 2147483647);
-	printf("ret printf = %d | ret ft = %d\n\n", ret1, ret2);
+	printf(" = %d\n",   ft_printf("%s", empty));
+	printf(" = %d\n\n", printf("%s", empty));
 
-	printf("===== TEST %%u =====\n");
-	ret1 = printf("printf:  [%u] [%u]\n", 0, 4294967295u);
-	ret2 = ft_printf("ft_printf:[%u] [%u]\n", 0, 4294967295u);
-	printf("ret printf = %d | ret ft = %d\n\n", ret1, ret2);
+	printf(" = %d\n",   ft_printf("%s", longs));
+	printf(" = %d\n\n", printf("%s", longs));
 
-	printf("===== TEST %%x / %%X =====\n");
-	ret1 = printf("printf:  [%x] [%x] [%X]\n", 0, 305419896, 305419896);
-	ret2 = ft_printf("ft_printf:[%x] [%x] [%X]\n", 0, 305419896, 305419896);
-	printf("ret printf = %d | ret ft = %d\n\n", ret1, ret2);
+	/* ---------- %p ---------- */
+	int a = 5;
 
-	printf("===== TEST %%%% =====\n");
-	ret1 = printf("printf:  [%%]\n");
-	ret2 = ft_printf("ft_printf:[%%]\n");
-	printf("ret printf = %d | ret ft = %d\n\n", ret1, ret2);
+	printf("========== %%p TESTS ==========\n");
+	printf(" = %d\n",   ft_printf("%p", &a));
+	printf(" = %d\n\n", printf("%p", &a));
 
-	printf("===== MIXED TEST =====\n");
-	ret1 = printf("printf:  [%d %u %x %s %c %% %p]\n",
-		-123, 999u, 0xabcdef, "test", 'Z', &x);
-	ret2 = ft_printf("ft_printf:[%d %u %x %s %c %% %p]\n",
-		-123, 999u, 0xabcdef, "test", 'Z', &x);
-	printf("ret printf = %d | ret ft = %d\n\n", ret1, ret2);
+	printf(" = %d\n",   ft_printf("%p", NULL));
+	printf(" = %d\n\n", printf("%p", NULL));
+
+	/* ---------- %d and %i ---------- */
+	int d1 = 0;
+	int d2 = -42;
+	int d3 = 123456789;
+	long long d4 = -2147483648LL;
+
+	printf("========== %%d / %%i TESTS ==========\n");
+	printf(" = %d\n",   ft_printf("%d", d1));
+	printf(" = %d\n\n", printf("%d", d1));
+
+	printf(" = %d\n",   ft_printf("%d", d2));
+	printf(" = %d\n\n", printf("%d", d2));
+
+	printf(" = %d\n",   ft_printf("%d", d3));
+	printf(" = %d\n\n", printf("%d", d3));
+
+	printf(" = %d\n",   ft_printf("%d", d4));
+	printf(" = %d\n\n", printf("%d", d4));
+
+	printf(" = %d\n",   ft_printf("%i", d2));
+	printf(" = %d\n\n", printf("%i", d2));
+
+	printf(" = %d\n",   ft_printf("%i", d4));
+	printf(" = %d\n\n", printf("%i", d4));
+
+	/* ---------- %u ---------- */
+	unsigned int u1 = 0;
+	unsigned int u2 = 42;
+	unsigned int u3 = 4294967295u;
+
+	printf("========== %%u TESTS ==========\n");
+	printf(" = %d\n",   ft_printf("%u", u1));
+	printf(" = %d\n\n", printf("%u", u1));
+
+	printf(" = %d\n",   ft_printf("%u", u2));
+	printf(" = %d\n\n", printf("%u", u2));
+
+	printf(" = %d\n",   ft_printf("%u", u3));
+	printf(" = %d\n\n", printf("%u", u3));
+
+	/* ---------- %x and %X ---------- */
+	unsigned int hx1 = 0;
+	unsigned int hx2 = 305419896;  // 0x12345678
+	unsigned int hx3 = 4294967295u;
+
+	printf("========== %%x / %%X TESTS ==========\n");
+	printf(" = %d\n",   ft_printf("%x", hx1));
+	printf(" = %d\n\n", printf("%x", hx1));
+
+	printf(" = %d\n",   ft_printf("%x", hx2));
+	printf(" = %d\n\n", printf("%x", hx2));
+
+	printf(" = %d\n",   ft_printf("%x", hx3));
+	printf(" = %d\n\n", printf("%x", hx3));
+
+	printf(" = %d\n",   ft_printf("%X", hx2));
+	printf(" = %d\n\n", printf("%X", hx2));
+
+	/* ---------- %% ---------- */
+	printf("========== %%%% TESTS ==========\n");
+	printf(" = %d\n",   ft_printf("%%"));
+	printf(" = %d\n\n", printf("%%"));
+
+	printf(" = %d\n",   ft_printf("%%%%"));
+	printf(" = %d\n\n", printf("%%%%"));
 
 	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: vborysov <vborysov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 22:53:57 by vborysov          #+#    #+#             */
-/*   Updated: 2025/11/14 15:15:59 by vborysov         ###   ########.fr       */
+/*   Updated: 2025/11/15 21:58:45 by vborysov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,10 @@ static int	ft_print_pointer(void *ptr)
 	int				symbols;
 	
 	symbols = 0;
+	if (!ptr)
+	{
+		return (ft_putstr("(nil)"));
+	}
 	address = (unsigned long)ptr;
 	symbols += ft_putstr("0x");
 	symbols += ft_putnbr_base_unsigned(address, "0123456789abcdef");
@@ -130,7 +134,7 @@ int ft_printf(const char *format, ...)
 				symbols +=ft_putchar('%');
 		}
 		else 
-			symbols +=ft_putchar(*format);
+			symbols += ft_putchar(*format);
 		format++;
 	}
 	va_end(args);
