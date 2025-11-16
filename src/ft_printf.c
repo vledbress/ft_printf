@@ -6,7 +6,7 @@
 /*   By: vborysov <vborysov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 22:53:57 by vborysov          #+#    #+#             */
-/*   Updated: 2025/11/16 15:05:06 by vborysov         ###   ########.fr       */
+/*   Updated: 2025/11/16 16:05:26 by vborysov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	ft_print_variadic(char spec, va_list args)
 		return (ft_print_pointer(va_arg(args, void *)));
 	else if (spec == '%')
 		return (ft_putchar('%'));
-	return (ft_putchar(spec));
+	return (0);
 }
 
 int	ft_printf(const char *format, ...)

@@ -106,5 +106,9 @@ int main(void)
 	printf(" = %d\n",   ft_printf("%%%%"));
 	printf(" = %d\n\n", printf("%%%%"));
 
+
+	printf("%d\n", printf("%z zalupa\n"));
+	printf("%d\n", ft_printf("%z zalupa\n"));
+
 	return 0;
 }
