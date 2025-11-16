@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_strings.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vborysov <vborysov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/15 22:18:21 by vborysov          #+#    #+#             */
-/*   Updated: 2025/11/16 15:09:26 by vborysov         ###   ########.fr       */
+/*   Created: 2025/11/16 14:11:26 by vborysov          #+#    #+#             */
+/*   Updated: 2025/11/16 15:08:08 by vborysov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <stdlib.h> //malloc, free
-# include <unistd.h> //write
-# include <stdarg.h> //va_start, va_arg, va_copy, va_end
+#ifndef FT_PRINTF_STRINGS_H
+# define FT_PRINTF_STRINGS_H
+# include <unistd.h>
 
-int	ft_printf(const char *format, ...);
+int	ft_putchar(char c);
+
+int	ft_putstr(char *str);
 
 #endif

@@ -3,12 +3,12 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
 
 SRC_DIR = src
-SRC = ft_printf.c
+SRC = ft_printf.c ft_printf_numbers.c ft_printf_strings.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
-INCLUDE = -I. #инклюд относительно мейкфайла
+INCLUDE = -I.  -I./inc/   #инклюд относительно мейкфайла
 
 all: $(NAME)
 

@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_numbers.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vborysov <vborysov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/15 22:18:21 by vborysov          #+#    #+#             */
-/*   Updated: 2025/11/16 15:09:26 by vborysov         ###   ########.fr       */
+/*   Created: 2025/11/16 14:09:08 by vborysov          #+#    #+#             */
+/*   Updated: 2025/11/16 15:07:35 by vborysov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <stdlib.h> //malloc, free
-# include <unistd.h> //write
-# include <stdarg.h> //va_start, va_arg, va_copy, va_end
+#ifndef FT_PRINTF_NUMBERS_H
+# define FT_PRINTF_NUMBERS_H
 
-int	ft_printf(const char *format, ...);
+# include <stdlib.h>
+
+int	ft_putnbr(int num);
+
+int	ft_putnbr_base_unsigned(unsigned long long num, char *base);
+
+int	ft_print_pointer(void *ptr);
 
 #endif
